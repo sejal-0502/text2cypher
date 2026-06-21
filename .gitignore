@@ -1,0 +1,33 @@
+# Model checkpoints (push these to HuggingFace Hub instead)
+checkpoints/
+checkpoints_3epoch/
+
+# Python
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# HuggingFace cache
+.cache/
+
+# Environment variables
+.env
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+
+# Jupyter notebooks (task says no notebooks)
+*.ipynb
+
+# Logs
+*.log
+runs/
+wandb/
