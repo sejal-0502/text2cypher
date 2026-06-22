@@ -9,15 +9,6 @@ from nltk.translate.bleu_score import sentence_bleu, SmoothingFunction
 
 from data import format_prompt, MODEL_NAME
 
-# def load_model(model_path):
-#     """Load model and tokenizer from a given path or HF hub."""
-
-#     print(f"Loading model from: {model_path}")
-#     tokenizer = AutoTokenizer.from_pretrained(model_path)
-#     model = AutoModelForCausalLM.from_pretrained(model_path, torch_dtype=torch.float32)
-#     model.eval()
-#     return model, tokenizer
-
 def load_model(model_path):
     print(f"Loading model from: {model_path}")
     

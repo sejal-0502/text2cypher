@@ -59,8 +59,8 @@ python src/evaluate.py --model SejalMutakekar/text2cypher-smollm2-135m/model_lar
 **Model checkpoints are available at:**
 [https://huggingface.co/SejalMutakekar/text2cypher-smollm2-135m](https://huggingface.co/SejalMutakekar/text2cypher-smollm2-135m)
 
-- `model_small/` — fine-tuned for 1 epoch (Exact Match: 0.22, BLEU: 0.4109)
-- `model_large/` — fine-tuned for 3 epochs (Exact Match: 0.40, BLEU: 0.5885)
+- `model_small/` — fine-tuned for 1 epoch 
+- `model_large/` — fine-tuned for 3 epochs
 
 ---
 
@@ -99,7 +99,7 @@ schema, and a ground truth Cypher query.
 We use two metrics:
 
 **1. Exact Match** : It checks whether the generated Cypher is character-for-character 
-identical to the ground truth. This is strict but unambiguous — a score of 0.22 
+identical to the ground truth. This is strict but unambiguous. A score of 0.22 
 means 11 out of 50 queries were perfectly correct.
 
 **2. BLEU Score** : It measures token-level overlap between the generated and ground 
@@ -133,4 +133,4 @@ best on simple MATCH/WHERE/RETURN patterns.
 - **Data quality** — some examples have type mismatches between the question and the ground truth Cypher (e.g.treating an INTEGER as a STRING in the query). The model learns these inconsistencies as if they were correct.
 - **Exact match is harsh** — the model may generate semantically correct Cypher that differs in whitespace, alias names, or property order, all of which would score 0 on exact match.
 - **No execution validation** — we cannot verify whether generated queries are actually executable or return correct results without a live Neo4j instance.
-- **Overfitting risk** — with only 1000 training examples and a model that can memorize patterns quickly, there is a risk of overfitting, especially beyond 1-2 epochs. 
+- **Overfitting risk** — with only 1000 training examples and a model that can memorize patterns quickly, there is a risk of overfitting, especially beyond 1-3 epochs. 
