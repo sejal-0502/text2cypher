@@ -9,12 +9,29 @@ from nltk.translate.bleu_score import sentence_bleu, SmoothingFunction
 
 from data import format_prompt, MODEL_NAME
 
-def load_model(model_path):
-    """Load model and tokenizer from a given path or HF hub."""
+# def load_model(model_path):
+#     """Load model and tokenizer from a given path or HF hub."""
 
+#     print(f"Loading model from: {model_path}")
+#     tokenizer = AutoTokenizer.from_pretrained(model_path)
+#     model = AutoModelForCausalLM.from_pretrained(model_path, torch_dtype=torch.float32)
+#     model.eval()
+#     return model, tokenizer
+
+def load_model(model_path):
     print(f"Loading model from: {model_path}")
-    tokenizer = AutoTokenizer.from_pretrained(model_path)
-    model = AutoModelForCausalLM.from_pretrained(model_path, torch_dtype=torch.float32)
+    
+    # Handle subfolder format e.g. "username/repo/subfolder"
+    parts = model_path.split("/")
+    if len(parts) == 3:
+        repo_id = f"{parts[0]}/{parts[1]}"
+        subfolder = parts[2]
+        tokenizer = AutoTokenizer.from_pretrained(repo_id, subfolder=subfolder)
+        model = AutoModelForCausalLM.from_pretrained(repo_id, subfolder=subfolder, dtype=torch.float32)
+    else:
+        tokenizer = AutoTokenizer.from_pretrained(model_path)
+        model = AutoModelForCausalLM.from_pretrained(model_path, dtype=torch.float32)
+    
     model.eval()
     return model, tokenizer
 
@@ -55,7 +72,7 @@ def exact_match(pred, ground_truth):
 
 def bleu_score(pred, ground_truth):
     """Compute sentence-level BLEU score."""
-    
+
     pred_tokens = pred.strip().split()
     truth_tokens = ground_truth.strip().split()
     

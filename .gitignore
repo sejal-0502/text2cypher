@@ -31,3 +31,6 @@ Thumbs.db
 *.log
 runs/
 wandb/
+
+# huggingface push
+push_to_hub.py
